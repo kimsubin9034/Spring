@@ -1,0 +1,24 @@
+package com.example.core2.repository;
+
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import com.example.core2.dto.Member;
+
+public class JdbcMemberRepository implements MemberRepository{
+
+	private final DataSource dataSource;
+	
+	
+	@Override
+	public Member save(Member member) {
+		return null;
+	}
+	
+	@Override
+	public List<Member> findAll() {
+		return null;
+	}
+
+}

@@ -1,0 +1,5 @@
+package com.condingbox.core3.basic;
+
+public class User {
+
+}

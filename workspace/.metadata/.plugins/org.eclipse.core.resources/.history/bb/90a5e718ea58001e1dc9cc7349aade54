@@ -1,0 +1,113 @@
+package com.condingbox.core3.controller.request;
+
+import java.io.IOException;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@Controller
+public class RequestParamController {
+		
+		//반환 타입이 없으면서 이렇게 응답에 값을 직접 넣으면, view 조회X
+		//http://localhost:9090/request-param-v1?username=hello&age=20
+		@RequestMapping("/request-param-v1")
+		public void requestParamV1(HttpServletRequest request,HttpServletResponse response) throws IOException {
+			String username = request.getParameter("username");
+			int age = Integer.parseInt(request.getParameter("age"));
+
+			System.out.println("username : " + username);
+			System.out.println("age : " + age);
+			response.getWriter().write("ok");
+			
+		}
+		/*
+		 * @ResponseBody
+		 * -view 조회를 무시하고, Http messapge body에 직접 해당 내용 입력
+		 * @RequestParam
+		 * -파라미터 이름으로 바인딩
+		 * -@RequestParam("username")
+		 * 	=request.getParameter("username")
+		 */
+		@ResponseBody
+		@RequestMapping("/request-param-v2")
+		public String requestParamV2(@RequestParam("username")String memberName, @RequestParam("age")int memberAge) {
+			System.out.println("username:" + memberName);
+			System.out.println("age:" + memberAge);
+			return "ok2";
+		}
+		/*
+		 * @RequestParam
+		 * -Http파라미터 이름이 변수 이름과 같으면
+		 * @RequestParam(name="XXX") 생략가능
+		 * 
+		 */
+		
+		@ResponseBody
+		@RequestMapping("/request-param-v3")
+		public String requestParamV3(@RequestParam String username, @RequestParam int age) {
+			System.out.println("username:" + username);
+			System.out.println("age:" + age);
+			return "ok3";
+		}
+		
+		
+		/*
+		 * @RequestParam
+		 * -String, int 등의 단순 타입이면 @RequestParam 생략 가능
+		 * ** 주의사항
+		 * -@RequestParam 어노테이션을 생략하면 스프링 MVC는 내부에서 required=false를 적용한다
+		 * -@RequestParam이 있으면 명확하게 요청 파라미터에서 데이터를 읽는다는 것을 알 수 있다
+		 */
+		@ResponseBody
+		@RequestMapping("/request-param-v4")
+		public String requestParamV4(String username,int age) {
+			System.out.println("username:" + username);
+			System.out.println("age:" + age);
+			return "ok4";
+		}
+		
+		/*
+		 * required=true 이면 반드시 파라미터 값이 들어와야한다.
+		 */
+		//http://localhost:9090/request-param-required?username=
+		//Integer로 등록해놓으면 age입력안해도 출력됨
+		
+		//-request-param-required
+		//	->username이 없으므로 exception 발생
+		
+		//request-param-required?username=
+		//	->빈문자로 통과
+		/*
+		 * request-param-required?username=admin
+		 * 	->int age Exception
+		 * 	->null을 int에 입력하는것은 불가능,
+		 * 	따라서 Integer로 변경해야함
+		 * 	또는 defaultvalue를 사용
+		 */
+		 
+		@ResponseBody
+		@RequestMapping("/request-param-required")
+		public String requestParamRequired(
+				@RequestParam(required=true) String username,
+				@RequestParam(required=false) Integer age) {
+			System.out.println("username:" + username);
+			System.out.println("age:" + age);
+			return "required";
+		}
+		
+		@ResponseBody
+		@RequestMapping("/request-param-default")
+		public String requestParaDefault(
+				@RequestParam(required=true, defaultvalue ="guest") String username,
+				@RequestParam(required=false, defaultvalue ="-1") Integer age) {
+			System.out.println("username:" + username);
+			System.out.println("age:" + age);
+			return "Default";
+		}
+		
+}

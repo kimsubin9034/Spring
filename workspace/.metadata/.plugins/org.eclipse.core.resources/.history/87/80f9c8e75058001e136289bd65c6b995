@@ -1,0 +1,25 @@
+package com.codingbox.core2_1.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.codingbox.core2_1.dto.Member;
+import com.codingbox.core2_1.repository.MemberRepository;
+
+public class MemberService {
+
+	private final MemberRepository memberRepository;
+	
+	@Autowired
+	public MemberService(MemberRepository memberRepository) {
+		this.memberRepository = memberRepository;
+	}
+	
+	public int join(Member member) {
+		MemberRepository.save(member);
+		return member.getId();
+	}
+	
+	public Lsit<Member> findMembers(){
+		return memberRepository.findAll();
+	}
+}

@@ -1,0 +1,7 @@
+package com.codingbox.core.dto;
+
+public class MemberDTO {
+	private int no;
+	private String name;
+	private String phone;
+}

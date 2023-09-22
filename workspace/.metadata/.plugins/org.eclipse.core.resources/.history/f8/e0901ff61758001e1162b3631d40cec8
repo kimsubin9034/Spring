@@ -1,0 +1,9 @@
+package com.example.core2.service;
+
+import com.example.core2.repository.MemberRepository;
+
+//서비스 역할
+public class MemberService {
+		
+	MemberRepository mRepository = new MemberRepository();
+}

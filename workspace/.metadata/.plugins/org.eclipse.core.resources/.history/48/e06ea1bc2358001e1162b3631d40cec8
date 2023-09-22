@@ -1,0 +1,32 @@
+package com.example.core2.repository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Repository;
+
+import com.example.core2.dto.Member;
+
+@Repository
+public class MemoryMemberRepository implements MemberRepository{
+
+	//메모리 사용
+	private static Map<Integer, Member> stor = new HashMap<>();
+	private static int sequence = 0;
+	
+	
+	@Override
+	public Member save(Member member) {
+		member.setId(++sequence);
+		store.put(member.getId(),member)
+		return null;
+	}
+
+	@Override
+	public List<Member> findAll() {
+		
+		return null;
+	}
+		
+}

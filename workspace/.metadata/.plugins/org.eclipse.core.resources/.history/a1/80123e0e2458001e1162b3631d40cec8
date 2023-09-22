@@ -1,0 +1,14 @@
+package com.example.core2.service;
+
+import org.springframework.stereotype.Service;
+
+import com.example.core2.repository.MemoryMemberRepository;
+
+//서비스 역할
+@Service
+public class MemberService {
+		
+	//Service가 Repository를 의존한다 라고 표현함
+	//MemoryMemberRepository mRepository = new MemoryMemberRepository();
+	
+}

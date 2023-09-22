@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<ul>
+		<li>텍스트
+			<ul>
+				<li><a href="/basic/text-basic">텍스트 출력 기본</a></li>
+				<li><a href="/basic/text-unescaped">텍스트 text,utext</a></li>
+			</ul>
+		</li>
+		<li>
+			<h1>
+				<span th:inline="none">[[]] vs [()]</span>
+			</h1>
+		</li>
+		<li>
+			<span th:inline="none">[[...]]=</span>
+			[[${data}]]
+		</li>
+		<li>
+			<span th:inline="none">[(...)] =</span>
+			[(${data})]
+		</li>
+	</ul>
+	<ul>
+		<li>텍스트
+			<ul>
+				<li><a href="/basic/text-variable">변수-Spring EL</a></li>
+				<li><a href="/basic/text-unescaped">텍스트 text,utext</a></li>
+			</ul>
+		</li>
+	</ul>
+</body>
+
+
+</html>

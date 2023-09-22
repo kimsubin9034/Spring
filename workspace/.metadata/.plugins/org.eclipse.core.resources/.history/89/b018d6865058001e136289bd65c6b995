@@ -1,0 +1,6 @@
+package com.codingbox.core2_1.repository;
+
+public interface MemberRepository {
+	Member save(Member member);
+	List<Member> findAll();
+}

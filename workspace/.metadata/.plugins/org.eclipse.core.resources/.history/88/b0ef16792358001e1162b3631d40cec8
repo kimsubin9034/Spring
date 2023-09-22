@@ -1,0 +1,22 @@
+package com.example.core2.repository;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.example.core2.dto.Member;
+
+@Repository
+public class MemoryMemberRepository implements MemberRepository{
+
+	@Override
+	public Member save(Member member) {
+		return null;
+	}
+
+	@Override
+	public List<Member> findAll() {
+		return null;
+	}
+		
+}

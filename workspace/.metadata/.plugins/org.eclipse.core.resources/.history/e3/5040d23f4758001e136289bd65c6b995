@@ -1,0 +1,12 @@
+package com.example.core2.repository;
+
+import jakarta.persistence.EntityManager;
+
+public class JpaMemberRepository {
+
+	private final EntityManager em;
+	public JpaMemberRepository(EntityManager em) {
+		
+	}
+	
+}

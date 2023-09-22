@@ -1,0 +1,10 @@
+package com.example.core2.service;
+
+import com.example.core2.repository.MemberRepository;
+
+//서비스 역할
+public class MemberService {
+		
+	//Service가 Repository를 의존한다 라고 표현함
+	MemberRepository mRepository = new MemberRepository();
+}

@@ -1,0 +1,6 @@
+package com.example.core2.controller;
+
+public class HomeController {
+	
+	//웰컴파일 -> static/index.html
+}

@@ -1,0 +1,10 @@
+package com.example.core2.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+
+public class HomeController {
+	
+	//웰컴파일 -> static/index.html
+	//localhost:9090
+	@GetMapping("/")
+}

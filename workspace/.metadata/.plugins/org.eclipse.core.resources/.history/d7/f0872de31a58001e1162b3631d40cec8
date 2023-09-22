@@ -1,0 +1,15 @@
+package com.example.core2.controller;
+
+import org.springframework.stereotype.Controller;
+
+import com.example.core2.service.MemberService;
+
+@Controller
+public class MemberController {
+	
+	//Controller가 Service에 의존한다 라고 표현함
+	MemberService mService = new MemberService();
+	
+	
+	
+}

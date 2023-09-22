@@ -1,0 +1,12 @@
+package com.codingbox.core.controller;
+
+import org.springframework.stereotype.Controller;
+
+/*
+ * @controller = Controller 역할을 하는 class에 붙여준다.
+ * 
+ */
+@Controller
+public class HelloController {
+	
+}

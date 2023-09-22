@@ -1,0 +1,5 @@
+package com.condingbox.core3.basic.thymeleaf;
+
+public class BasicController {
+
+}

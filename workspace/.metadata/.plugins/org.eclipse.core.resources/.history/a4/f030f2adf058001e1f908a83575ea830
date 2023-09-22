@@ -1,0 +1,7 @@
+package com.condingbox.core3.basic;
+
+public class HelloData {
+	private String username;
+	private int age;
+	
+}

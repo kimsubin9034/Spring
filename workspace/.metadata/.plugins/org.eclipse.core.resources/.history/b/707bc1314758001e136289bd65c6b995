@@ -1,0 +1,5 @@
+package com.example.core2.repository;
+
+public class JpaMemberRepository {
+
+}
