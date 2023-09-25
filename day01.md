@@ -41,7 +41,7 @@
 
 
 # 8.프로젝트 세팅
--https://start.spring.io/
+**-https://start.spring.io/**
 
 ## 8-1. Project : 사용할 빌드 툴 선택(Maven/Gradle)
 - Maven,Gradle은 프로젝트에 필요한 의존성을 관리하고 빌드의 라이프사이클을 관리해주는 툴이다.

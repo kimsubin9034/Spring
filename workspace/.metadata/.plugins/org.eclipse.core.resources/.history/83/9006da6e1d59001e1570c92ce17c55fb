@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form aciton="/members/new" method="post">
+	<label>이름</label>
+	<input type="text" id="name" name="name" placeholder="이름을 입력하세요"/>
+	<input type="text" name="userid" id="signupUsername" placeholder="사용자 ID" required>
+	
+	
+		<button type="submit">등록</button>
+	</form>
+</body>
+</html>
+
+

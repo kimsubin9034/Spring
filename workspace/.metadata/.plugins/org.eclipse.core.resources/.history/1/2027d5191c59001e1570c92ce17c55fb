@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+		<input type="text" name="userid" id="signupUsername" placeholder="사용자 ID>
+		<input type="password" name="password" id="signupPassword"  placeholder="비밀번호">
+		<input type="text" name="name" id="signupName" placeholder="이름"
+		
+		<label for="signupGender_male">남자</label>
+      <input type="radio" name="gender" id="signupGender_male" value="male" required>
+      <label for="signupGender_female">여자</label>
+      <input type="radio" name="gender" id="signupGender_female" value="female">
+		
+</body>
+</html>

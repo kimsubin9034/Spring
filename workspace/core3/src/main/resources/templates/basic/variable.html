@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-   <h1>SpringEl 표현식</h1>
+   <h1>SpringEL 표현식</h1>
    <ul>
       Object
       <li>
@@ -51,5 +51,12 @@
             <span th:text="${userMap['UserA'].getUsername()}"></span>
       </li>
    </ul>
+   
+   <h1>지역변수 - (th:with)</h1>
+	<div th:with="first=${users[0]}">
+		<p>
+			처음사람의 이름은 <span th:text="${first.username}"></span>
+		</p>
+	</div>
 </body>
 </html>

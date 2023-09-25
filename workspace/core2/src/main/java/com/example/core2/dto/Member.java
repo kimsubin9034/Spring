@@ -15,6 +15,7 @@ public class Member {
 	@SequenceGenerator(name="mySeq" , sequenceName = "member_seq" , allocationSize = 1)
 	private int id;
 	private String name;
+	private String password;
 	public int getId() {
 		return id;
 	}
@@ -27,9 +28,16 @@ public class Member {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	@Override
 	public String toString() {
-		return "Member [id=" + id + ", name=" + name + "]";
+		return "Member [id=" + id + ", name=" + name + ", password=" + password + "]";
 	}
+
 	
 }

@@ -1,0 +1,9 @@
+package com.condingbox.core3.basic.thymeleaf.bean;
+
+public class HelloBean {
+
+	
+	public String hello(String data) {
+		return "Hello" + data;
+	}
+}
