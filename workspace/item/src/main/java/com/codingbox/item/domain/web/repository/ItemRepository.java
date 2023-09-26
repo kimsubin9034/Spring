@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.boot.autoconfigure.ssl.JksSslBundleProperties.Store;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.codingbox.item.domain.web.dto.Item;
 
@@ -14,34 +15,37 @@ import com.codingbox.item.domain.web.dto.Item;
 public class ItemRepository {
 	private static final Map<Long, Item> store = new HashMap<>();
 	private static long sequence = 0L;
-	
-	
-	//저장
+
+	// 저장
 	public Item save(Item item) {
 		item.setId(++sequence);
 		store.put(item.getId(), item);
 		return item;
 	}
-	
+
 	public Item findById(Long id) {
 		return store.get(id);
 	}
-	
+
 	public List<Item> findAll() {
 		return new ArrayList<Item>(store.values());
 	}
-	
-	//아이템 수정
-	public void update(Long itemId, Item updateParam) {
-		//item 먼저 찾기
+
+	public void update(Long itemId, Item updatParam) {
+		// item 먼저 찾는다
 		Item findItem = findById(itemId);
-		findItem.setItemName(updateParam.getItemName());
-		findItem.setPrice(updateParam.getPrice());
-		findItem.setQuantity(updateParam.getQuantity());
-		
+		findItem.setItemName(updatParam.getItemName());
+		findItem.setPrice(updatParam.getPrice());
+		findItem.setQuantity(updatParam.getQuantity());
 	}
-	
-	//store clear
+
+	// 아이템 수정
+	public void editForm() {
+		// item 먼저 찾기
+
+	}
+
+	// store clear
 	public void clearStore() {
 		store.clear();
 	}
