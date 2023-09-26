@@ -1,0 +1,18 @@
+1.기본 객체들
+-${#request}
+-${#respones}
+-${#session}
+-${#servletContext}
+-${#locale}
+
+-spring boot 2.x 모든객체 지원 가능
+-spring boot 3.x ${#locale}만 지원 가능
+
+
+2.Spring Boot static 폴더와 templates 폴더의 차이
+2-1. template
+-thymeleaf의 파일을 두는곳
+
+-2. static
+-보통 css나 js를 둔다.
+

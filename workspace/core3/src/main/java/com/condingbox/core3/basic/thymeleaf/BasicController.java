@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.condingbox.core3.basic.User;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -56,8 +58,15 @@ public class BasicController {
 	
 	
 	@GetMapping("basic-objects")
-	public String basicObjects(HttpSession session) {
+	public String basicObjects(HttpSession session, 
+		HttpServletRequest request,
+		HttpServletResponse response,
+		Model model) {
+		
 		session.setAttribute("sessionData", "session!!!");
+		model.addAttribute("requset", request);
+		model.addAttribute("response", response);
+		model.addAttribute("servletContext", request.getServletContext());
 		return "basic/basic-objects";
 	}
 	
