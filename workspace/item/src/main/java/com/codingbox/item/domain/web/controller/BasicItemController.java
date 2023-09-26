@@ -40,7 +40,7 @@ public class BasicItemController {
 	public String items(Model model) {
 		List<Item> items = itemRepository.findAll();
 		model.addAttribute("items", items);
-		return "basic/items";
+		return "/basic/items";
 	}
 
 	// 종료 메서드
@@ -53,7 +53,7 @@ public class BasicItemController {
 	public String item(@PathVariable long itemId, Model model) {
 		Item item = itemRepository.findById(itemId);
 		model.addAttribute("item", item);
-		return "basic/item";
+		return "/basic/item";
 	}
 
 	@GetMapping("/add")
@@ -116,10 +116,10 @@ public class BasicItemController {
 		itemRepository.save(item);
 		return "redirect:/basic/items/" + item.getId();
 	}
-	
-	//화면에 메시지출력 저장성공메시지 , 주소창 status=true
+
+	// 화면에 메시지출력 저장성공메시지 , 주소창 status=true
 	@PostMapping("/add")
-	public String saveItemV6(Item item ,RedirectAttributes redirectAttributes) {
+	public String saveItemV6(Item item, RedirectAttributes redirectAttributes) {
 		itemRepository.save(item);
 //		redirectAttributes.addAttribute("itemId", savedItem);
 		redirectAttributes.addAttribute("status", true);
