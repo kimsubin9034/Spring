@@ -75,6 +75,17 @@
             </div>
          </div>
        
+        <hr class="my-4">
+       	  <div>
+            <div>배송 방식</div>
+            <select th:field="*{deliveryCode}" class="form-select">
+               <option value="">==배송 방식 선택==</option><!-- 아무것도 선택 안할때 -->
+               <option th:each="deliveryCode : ${deliveryCodes}" th:value="${deliveryCode.code}"
+                  th:text="${deliveryCode.displayName}">
+                  FAST
+               </option>
+            </select>
+         </div>
          
          
          <div class="row">

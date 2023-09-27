@@ -40,8 +40,24 @@
 -th:text="${type.description}" : enum의 getDescription을 return
 
 
+4. bindingResult
+-스프링이 제공하는 검증 오류를 보관하는 객체이다. 검증 오류가 발생하면 여기에 보관하면 된다.
+-BindingResult가 있으면 @ModelAttribute에 데이터 바인딩 시 오류가 발생하도록 컨트롤러가 호출된다.
+-주의사항: 검증할 대상 바로 다음에 와야한다. 순서가 중요
+-@ModelAttribute Item item, 바로 다음에 BindingResult가 와야한다.
+-BindingResult는 Model에 자동으로 포함된다.
+-th:errors: 해당필드에 오류가 있는 경우에 태그를 출력한다. th:if의 편의버전이다.
+-th:errorclass : th:field에서 지정한 필드에 오류가 있으면 class정보를 추가한다.
 
-
+5.FieldError 생성자
+-파라미터 목록
+	->objectname : 오류가 발생한 객체 이름
+	->field	    : 오류필드
+	->rejectedvalue : 사용자가 입력한 값(거절된값)
+	->bindingFailure: 타입 오류같은 바인딩 실패인지,검증실패인지 구분
+	->codes : 메시지 코드
+	->arguments : 메시지에서 사용하는 인자
+	->defaultMessage: 기본 오류 메시지
 
 
 

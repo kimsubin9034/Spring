@@ -7,7 +7,11 @@
    <style>
       .container {
          max-width: 560px;
-      }
+}
+      .field-error {
+   border-color: #dc3545;
+   color: #dc3545;
+}
    </style>
 </head>
 
@@ -17,18 +21,24 @@
          <h2>상품 등록 폼</h2>
       </div>
       <h4 class="mb-3">상품 입력</h4>
-      <form action="item.html" method="post" th:action="@{/basic/items/add}" th:object="${item}">
+      <form action="item.html" method="post" th:action th:object="${item}">
          <div>
             <label for="itemName">상품명</label>
-            <input type="text" id="itemName" th:field="*{itemName}" class="form-control" placeholder="이름을 입력하세요">
+            <input type="text" id="itemName" th:field="*{itemName}"
+            th:errorclass="field-error" class="form-control" placeholder="이름을 입력하세요">
+         <div class="field-error" th:errors="*{itemName}">상품명 오류</div>
          </div>
          <div>
             <label for="price">가격</label>
-            <input type="text" id="price" th:field="*{price}" class="form-control" placeholder="가격을 입력하세요">
+            <input type="text" id="price" th:field="*{price}" 
+            th:errorclass="field-error" class="form-control" placeholder="가격을 입력하세요">
+            <div class="field-error" th:errors="*{price}">가격 오류</div>
          </div>
          <div>
             <label for="quantity">수량</label>
-            <input type="text" id="quantity" th:field="*{quantity}" class="form-control" placeholder="수량을 입력하세요">
+            <input type="text" id="quantity" th:field="*{quantity}" 
+            th:errorclass="field-error" class="form-control" placeholder="수량을 입력하세요">
+            <div class="field-error" th:errors="*{quantity}">수량 오류</div>
          </div>
          <hr class="my-4">
 
@@ -69,6 +79,8 @@
                   class="form-check-label"></label>
             </div>
          </div>
+         
+          <hr class="my-4">
          <div>
             <div>배송 방식</div>
             <select th:field="*{deliveryCode}" class="form-select">
@@ -95,6 +107,16 @@
       </form>
    </div>
    <!-- /container -->
+   
+   <script>
+	   function val() {
+		if(document.getElementById("itemName").value == ""){
+			alert("item을 넣어주세요");
+			return false;
+		}   
+	   }
+	   
+   </script>
 </body>
 
 </html>

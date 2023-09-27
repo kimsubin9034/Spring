@@ -6,8 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -156,7 +160,7 @@ public class BasicItemController {
 	}
 
 	// 화면에 메시지출력 저장성공메시지 , 주소창 status=true
-	@PostMapping("/add")
+	//@PostMapping("/add")
 	public String saveItemV6(Item item, RedirectAttributes redirectAttributes) {
 
 		System.out.println("Item.open: " + item.getOpen());
@@ -164,7 +168,7 @@ public class BasicItemController {
 		System.out.println("Item.itemType: " + item.getItemType());
 
 		Item savedItem = itemRepository.save(item);
-//		redirectAttributes.addAttribute("itemId", savedItem);
+	//  redirectAttributes.addAttribute("itemId", savedItem);
 		redirectAttributes.addAttribute("status", true);
 		return "redirect:/basic/items/" + item.getId();
 	}
@@ -188,7 +192,92 @@ public class BasicItemController {
 		itemRepository.update(itemId, item);
 		return "redirect:/basic/items/{itemId}";
 	}
+	
+	
+	/*
+	 * BindingResult : Item객체에 값이 잘 담기지 않을 떄
+	 * BindingResult : 객체에 값이 담기게 된다.
+	 * StringUtils : 값이 있을경우에는 true를 반환, 공백이나 NULL이 들어올 경우에는 
+	 * false를 반환하게 된다.
+	 */
+	//@PostMapping("/add")
+	public String saveItemV7(Item item, BindingResult bindingResult, 
+	        RedirectAttributes redirectAttributes) {
 
+	    if (!StringUtils.hasText(item.getItemName())) {
+	        bindingResult.addError(
+	            new FieldError("item", "itemName", "상품 이름은 필수입니다"));
+	    }
+	    if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
+	        bindingResult.addError(new FieldError("item", "price", "가격은 1,000~1,000,000 까지 허용"));
+	    }
+
+	    if (item.getQuantity() == null || item.getQuantity() > 9999) {
+	        bindingResult.addError(new FieldError("item", "quantity", "수량은 최대 9,999까지 허용됩니다"));
+	    }
+	    
+	    // 검증 실패시 다시 입력폼
+	    if (bindingResult.hasErrors()) {
+	        System.out.println("error: " + bindingResult);
+	        return "basic/addForm";
+	    }
+	    Item savedItem = itemRepository.save(item);
+	    redirectAttributes.addAttribute("status", true);
+	    return "redirect:/basic/items/" + savedItem.getId(); // 수정: item.getId() 대신 savedItem.getId() 사용
+	}
+
+	
+	//@PostMapping("/add")
+	public String saveItemV8(Item item, BindingResult bindingResult, 
+	        RedirectAttributes redirectAttributes) {
+
+	    if (!StringUtils.hasText(item.getItemName())) {
+	        bindingResult.addError(
+	            new FieldError("item", "itemName", item.getItemName(),false,null,null, "상품 이름은 필수입니다"));
+	    }
+	    if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
+	        bindingResult.addError(new FieldError("item", "price",item.getPrice(),true,null,null, "가격은 1,000~1,000,000 까지 허용"));
+	    }
+
+	    if (item.getQuantity() == null || item.getQuantity() > 9999) {
+	        bindingResult.addError(new FieldError("item", "quantity",item.getQuantity(),false,null,null, "수량은 최대 9,999까지 허용됩니다"));
+	    }
+	    
+	    if (bindingResult.hasErrors()) {
+	        System.out.println("error: " + bindingResult);
+	        return "basic/addForm";
+	    }
+	    Item savedItem = itemRepository.save(item);
+	    redirectAttributes.addAttribute("status", true);
+	    return "redirect:/basic/items/" + savedItem.getId(); // 수정: item.getId() 대신 savedItem.getId() 사용
+	}
+	
+	@PostMapping("/add")
+	public String saveItemV9(Item item, BindingResult bindingResult, 
+	        RedirectAttributes redirectAttributes) {
+
+	    if (!StringUtils.hasText(item.getItemName())) {
+	        bindingResult.addError(
+	            new FieldError("item", "itemName", item.getItemName(),false, new String[]{"required.item.itemName"} , null, null));
+	    }
+	    if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
+	        bindingResult.addError(new FieldError("item", "price",item.getPrice(),true,new String[]{"range.item.price"},new Integer[]{10,1000},null));
+	    }
+
+	    if (item.getQuantity() == null || item.getQuantity() > 9999) {
+	        bindingResult.addError(new FieldError("item", "quantity",item.getQuantity(),false,new String[]{"max.item.quantity"},new Integer[]{9999}, null));
+	    }
+	    
+	    if (bindingResult.hasErrors()) {
+	        System.out.println("error: " + bindingResult);
+	        return "basic/addForm";
+	    }
+	    Item savedItem = itemRepository.save(item);
+	    redirectAttributes.addAttribute("status", true);
+	    return "redirect:/basic/items/" + savedItem.getId(); // 수정: item.getId() 대신 savedItem.getId() 사용
+	}
+	
+	
 	// 테스트 데이터 추가
 	@PostConstruct
 	public void init() {
