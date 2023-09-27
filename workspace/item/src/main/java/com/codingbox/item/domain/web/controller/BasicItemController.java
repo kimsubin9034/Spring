@@ -1,6 +1,9 @@
 package com.codingbox.item.domain.web.controller;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.codingbox.item.domain.web.dto.DeliveryCode;
 import com.codingbox.item.domain.web.dto.Item;
+import com.codingbox.item.domain.web.dto.ItemType;
 import com.codingbox.item.domain.web.repository.ItemRepository;
 
 import jakarta.annotation.PostConstruct;
@@ -28,6 +33,38 @@ import lombok.RequiredArgsConstructor;
 public class BasicItemController {
 
 	private final ItemRepository itemRepository;
+
+	/*
+	 * @ModelAttribute : Controller 를 호출할때(어떤 메서드가 호출되던지 간에) model 에 자동으로 해당 내용이
+	 * 담기도록 보장된다.
+	 */
+	@ModelAttribute("regions")
+	public Map<String, String> regions() {
+		// 기존 HashMap : 순서가 보장되지 않는다
+		// LinkedHashMap : 순서보장
+		Map<String, String> regions = new LinkedHashMap<>();
+		regions.put("SEOUL", "서울");
+		regions.put("BUSAN", "부산");
+		regions.put("JEJU", "제주");
+//		model.addAttribute("regions", regions);
+
+		return regions;
+	}
+
+	@ModelAttribute("itemTypes")
+	public ItemType[] itemTypes() {
+		// enum에 있는 값을 배열로 넘겨준다
+		return ItemType.values();
+	}
+
+	@ModelAttribute("deliveryCodes")
+	public List<DeliveryCode> deliveryCodes() {
+		List<DeliveryCode> deliveryCodes = new ArrayList<>();
+		deliveryCodes.add(new DeliveryCode("FAST", "빠른 배송"));
+		deliveryCodes.add(new DeliveryCode("NORMAL", "일반 배송"));
+		deliveryCodes.add(new DeliveryCode("SLOW", "느린 배송"));
+		return deliveryCodes;
+	}
 
 	// @Autowired (생성자가 하나일경우 autowired 생략가능함)
 	// @Autowired 로 의존관계 주입해준다.
@@ -57,7 +94,8 @@ public class BasicItemController {
 	}
 
 	@GetMapping("/add")
-	public String addForm() {
+	public String addForm(Model model) {
+		model.addAttribute("item", new Item());
 		return "/basic/addForm";
 	}
 
@@ -120,7 +158,12 @@ public class BasicItemController {
 	// 화면에 메시지출력 저장성공메시지 , 주소창 status=true
 	@PostMapping("/add")
 	public String saveItemV6(Item item, RedirectAttributes redirectAttributes) {
-		itemRepository.save(item);
+
+		System.out.println("Item.open: " + item.getOpen());
+		System.out.println("Item.regions: " + item.getRegions());
+		System.out.println("Item.itemType: " + item.getItemType());
+
+		Item savedItem = itemRepository.save(item);
 //		redirectAttributes.addAttribute("itemId", savedItem);
 		redirectAttributes.addAttribute("status", true);
 		return "redirect:/basic/items/" + item.getId();
@@ -140,6 +183,8 @@ public class BasicItemController {
 	 */
 	@PostMapping("/{itemId}/edit")
 	public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
+		System.out.println("item: " + item.getOpen());
+
 		itemRepository.update(itemId, item);
 		return "redirect:/basic/items/{itemId}";
 	}
