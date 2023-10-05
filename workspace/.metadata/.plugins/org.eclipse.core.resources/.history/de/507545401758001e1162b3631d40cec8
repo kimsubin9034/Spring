@@ -1,7 +1,0 @@
-package com.example.core2.service;
-
-
-//서비스 역할
-public class MemberService {
-
-}

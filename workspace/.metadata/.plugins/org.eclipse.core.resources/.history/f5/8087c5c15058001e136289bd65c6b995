@@ -1,8 +1,0 @@
-package com.codingbox.core2_1.service;
-
-import com.codingbox.core2_1.repository.MemberRepository;
-
-public class MemberService {
-
-	private final MemberRepository memberRepository;
-}

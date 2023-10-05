@@ -1,8 +1,0 @@
-package com.example.core2.repository;
-
-public interface MemberRepository {
-		//회원 저장
-	
-		//전체 조회
-	
-}
