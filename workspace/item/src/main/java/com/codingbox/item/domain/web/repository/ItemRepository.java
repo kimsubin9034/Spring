@@ -44,9 +44,7 @@ public class ItemRepository {
 		findItem.setDeliveryCode(updatParam.getDeliveryCode());
 		
 	}
-	
 
-	
 
 	// store clear
 	public void clearStore() {

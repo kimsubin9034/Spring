@@ -11,9 +11,9 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org
 <property name="javax.persistence.jdbc.user" value="springweb" />
 <property name="javax.persistence.jdbc.password" value="springweb" />
 <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
-<!--          <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect" /> -->
-<property name="hibernate.hbm2ddl.auto" value="create" />
+<property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect" />	
+<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect" /> -->
+<property name="hibernate.hbm2ddl.auto" value="none" />
 
 
 
