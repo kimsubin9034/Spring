@@ -1,5 +1,7 @@
 package com.codingbox.jpashop;
 
+import java.util.List;
+
 import com.codingbox.jpashop.relation.Member;
 import com.codingbox.jpashop.relation.Team;
 import jakarta.persistence.EntityManager;
@@ -25,7 +27,7 @@ public class JpaMain {
         Member member = new Member();
         member.setUsername("말랑이");
         //member.setTeamId(team.getId());
-        member.setTeam(team);
+        //member.setTeam(team);
         em.persist(member);
 
         //조회
@@ -46,6 +48,14 @@ public class JpaMain {
       Team findTeam = findMember.getTeam();
       System.out.println("findTeam : "+ findTeam.getName());
         
+      // 양방향 매핑
+      Member findsideMember = em.find(Member.class, member.getId());
+      List<Member> members  = findsideMember.getTeam().getMember();
+      
+      for(Member m : members) {
+    	  System.out.println("result = " + m.getUsername());
+    	  
+      }
         tx.commit();
         em.close();
         emf.close();
