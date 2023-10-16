@@ -17,13 +17,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="item, iterStat : ${items}"> <!-- 'member'를 'item'으로 수정 -->
-						<td th:text="${iterStat.count}"></td>
+					<tr th:each="item, iterStat : ${items}">
 						<td th:text="${item.id}"></td>
-						<td th:text="${item.name}"></td> <!-- 'item.name'으로 수정 -->
-						<td th:text="${item.price}"></td> <!-- 'item.price'로 수정 -->
-						<td th:text="${item.stockQuantity}"></td> <!-- 'item.stockQuantity'로 수정 -->
-						<td><a class="btn btn-primary"  role="button">수정</a></td>
+						<td th:text="${item.name}"></td>
+						<td th:text="${item.price}"></td> 
+						<td th:text="${item.stockQuantity}"></td> 
+						<!--/items/2/3/.../edit -->
+						<td><a th:href ="@{/items/{id}/edit(id=${item.id})}"
+						 class="btn btn-primary"  role="button">수정</a></td>
 					</tr>
 				</tbody>
 			</table>

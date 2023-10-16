@@ -35,7 +35,12 @@ public class ItemRepository {
 	//저장
 	//void, save()
 	public void save(Item item) {
-		em.persist(item);
+//		//신규등록
+//		if(item.getId() == null) {
+			em.persist(item);
+//		}else {	//update
+//			em.merge(item);
+//		}
 	}
 
 	// return type :arrayList
@@ -47,7 +52,14 @@ public class ItemRepository {
 	public List<Item> findByname(String name){
 		return em.createQuery("SELECT i FROM Item i where i.name =:name" ,Item.class)
 					.setParameter("name", name).getResultList();
-	
 	}
+	
+	//item 하나 조회
+	//메서드명 : findOne
+	public Item findOne(Long itemId) {
+	    return em.find(Item.class, itemId);
+	}
+	
+	
 	
 }

@@ -57,7 +57,21 @@ public class Order {
 		orderItem.setOrder(this);
 	
 	}
+	//주문 생성에 관련된 로직
+	public static Order createOrder(Member member, OrderItem... orderItems) {
+		Order order = new Order();
+		order.setMember(member);
+		for(OrderItem orderItem : orderItems) {
+			order.addOrderItem(orderItem);
+			
+		}
+		order.setStatus(OrderStatus.ORDER);
+		order.setOrderdate(LocalDateTime.now());
+		
+		return order;
+	}
 	
+	//===============비즈니스로직===================
 	
 	
 	
