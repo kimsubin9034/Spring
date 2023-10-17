@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -40,7 +41,7 @@ public class Order {
 	private OrderStatus status;
 	
 	
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order" , cascade =  CascadeType.ALL)
 	private List<OrderItem> orderItems = new ArrayList<>();
 	
 	//연관관계 메서드
@@ -69,6 +70,13 @@ public class Order {
 		order.setOrderdate(LocalDateTime.now());
 		
 		return order;
+	}
+
+	public void cancel() {
+		this.setStatus(OrderStatus.CANCEL);
+		for(OrderItem orderItem : orderItems) {
+			orderItem.cancel();
+		}
 	}
 	
 	//===============비즈니스로직===================

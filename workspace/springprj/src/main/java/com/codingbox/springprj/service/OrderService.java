@@ -1,5 +1,7 @@
 package com.codingbox.springprj.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +12,7 @@ import com.codingbox.springprj.domain.OrderItem;
 import com.codingbox.springprj.domain.controller.ItemRepository;
 import com.codingbox.springprj.repository.MemberRepository;
 import com.codingbox.springprj.repository.OrderRepository;
+import com.codingbox.springprj.repository.OrderSearch;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,15 +42,28 @@ public class OrderService {
 		orderRepository.save(order);
 		return order.getId();
 	}
+
+	public List<Order> findOrders(OrderSearch orderSearch) {
+	      return orderRepository.findAll(orderSearch);
+	   }
+
+		//영속성 컨텍스트
+		
+		//주문 취소
+		/*
+		 * 주문 취소시 수량 update, 상태값 변경에 처리를 각각 해줘야 하나
+		 * 데이터들만 바꿔주면 jpa는 해당 값들을 변경체를 하고(더디체킹, 변경내역 감지)
+		 * 변경 내역 감지가 변경된 내용들을 다 찾아서 데이터베이스에 업데이트 쿼리가 전송
+		 * 여기서 Order의 상태변경 update, Item의 stockQuantity가 변경된다.
+		 */
+	@Transactional
+	public void cancelOrder(Long orderId) {
+		Order order = orderRepository.findOne(orderId);
+		
+		order.cancel();
+	}
+
+		
+
 	
-	
-	//검색
-	//List<>, findOrders()
-	
-	
-//	public void createOrder(Member member, Item item, int count) {
-//		
-//		orderRepository.save(member, item, count);
-//		
-//	}
 }

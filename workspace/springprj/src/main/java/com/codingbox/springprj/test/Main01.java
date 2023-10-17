@@ -1,6 +1,5 @@
 package com.codingbox.springprj.test;
 
-import oracle.security.o3logon.a;
 
 public class Main01 {
 

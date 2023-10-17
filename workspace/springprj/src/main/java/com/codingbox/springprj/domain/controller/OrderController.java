@@ -5,16 +5,21 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.codingbox.springprj.domain.Item;
 import com.codingbox.springprj.domain.Member;
+import com.codingbox.springprj.domain.Order;
+import com.codingbox.springprj.repository.OrderSearch;
 import com.codingbox.springprj.service.ItemService;
 import com.codingbox.springprj.service.MemberService;
 import com.codingbox.springprj.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequiredArgsConstructor
@@ -49,13 +54,25 @@ public class OrderController {
 		
 		
 		//추후 상세페이지로 수정
-		return "redirect:/order";
+		return "redirect:/orders";
 		
 	}
 	
+	//상세페이지 조회
+	@GetMapping("/orders")
+	public String orderList(@ModelAttribute("orderSearch")OrderSearch orderSearch
+			,Model model) {
+		List<Order> orders = orderService.findOrders(orderSearch);
+		model.addAttribute("orders", orders);
+		return "order/orderList";
+	}
 	//url : orders
 	//orderList()
 	//return :order/orderList
-	
-	
+	@PostMapping("/orders/{orderId}/cancel")
+	public String cancelOrder(@PathVariable("orderId") Long orderId) {
+	    orderService.cancelOrder(orderId); // 콤마 제거
+	    return "redirect:/orders";
+	}
+
 }

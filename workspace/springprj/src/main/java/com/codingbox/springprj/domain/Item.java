@@ -37,6 +37,10 @@ public class Item {
 		
 		this.stockQuantity = restStock;
 	}
+
+	public void addStock(int count) {
+		this.stockQuantity += count;
+	}
 	
 	
 }
